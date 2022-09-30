@@ -1,8 +1,8 @@
 <template>
   <h2> Jobs Page</h2>
   <div v-for="job in jobs" :key="job.id">
-    <h2>{{ job.title }}</h2>
-    <p>{{ job.details }}</p>
+    <h2>{{ job.name }}</h2>
+    <p>{{ job.email }}</p>
     <router-link :to="{ name: 'JobDetails', params: { id: job.id } }">
       Go to Job
     </router-link>
@@ -13,12 +13,17 @@
 export default {
   data() {
     return {
-      jobs: [
-        { title: 'Ninja UX Developer', id: 1, details: 'lorem rem sum' },
-        { title: 'Ninja Web Developer', id: 2, details: 'lorem rem sum' },
-        { title: 'Ninja Vue Developer', id: 3, details: 'lorem rem sum' },
-      ],
+      jobs: [],
     };
+  },
+  mounted() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        this.jobs = data;
+      })
+      .catch((err) => console.log(err.message));
   },
 };
 </script>
