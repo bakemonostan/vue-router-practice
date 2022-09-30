@@ -1,9 +1,9 @@
 <template>
   <h2> Jobs Page</h2>
-  <div v-for="job in jobs" :key="job.id">
-    <h2>{{ job.name }}</h2>
-    <p>{{ job.email }}</p>
-    <router-link :to="{ name: 'JobDetails', params: { id: job.id } }">
+  <div v-for="job in jobs" :key="job.area">
+    <h2>{{ job.name.common }}</h2>
+    <p>{{ job.population }}</p>
+    <router-link :to="{ name: 'JobDetails', params: { id: job.area } }">
       Go to Job
     </router-link>
   </div>
@@ -17,7 +17,7 @@ export default {
     };
   },
   mounted() {
-    fetch('https://jsonplaceholder.typicode.com/users')
+    fetch('https://restcountries.com/v3.1/name/peru')
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
